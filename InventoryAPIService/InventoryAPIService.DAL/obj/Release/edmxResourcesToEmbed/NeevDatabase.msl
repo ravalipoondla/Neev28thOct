@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
+  <Alias Key="Model" Value="NeevDatabase" />
+  <Alias Key="Target" Value="NeevDatabase.Store" />
+  <EntityContainerMapping CdmEntityContainer="NeevDatabaseContainer" StorageEntityContainer="NeevDatabaseStoreContainer">
+    <FunctionImportMapping FunctionImportName="GetUserRoles" FunctionName="NeevDatabase.Store.usp_GetUserRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetUserRoles_Result">
+          <ScalarProperty Name="user_role_id" ColumnName="user_role_id" />
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetALLInventories" FunctionName="NeevDatabase.Store.usp_GetALLInventories">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetALLInventories_Result">
+          <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddProductInventoryItem" FunctionName="NeevDatabase.Store.usp_AddProductInventoryItem" />
+    <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="NeevDatabase.Store.usp_ValidateUser" />
+    <FunctionImportMapping FunctionImportName="GetUserActivities" FunctionName="NeevDatabase.Store.usp_GetUserActivities">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetUserActivities_Result">
+          <ScalarProperty Name="activity_id" ColumnName="activity_id" />
+          <ScalarProperty Name="activity_name" ColumnName="activity_name" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteProductInventory" FunctionName="NeevDatabase.Store.usp_DeleteProductInventory" />
+    <FunctionImportMapping FunctionImportName="GetInventoryData" FunctionName="NeevDatabase.Store.usp_GetInventoryData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.GetInventoryData_Result">
+          <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetExportData" FunctionName="NeevDatabase.Store.usp_GetExportData">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetExportData_Result">
+          <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="percentage" ColumnName="percentage" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddRawMaterialInventoryItem" FunctionName="NeevDatabase.Store.usp_AddRawMaterialInventoryItem" />
+    <FunctionImportMapping FunctionImportName="GetALLRawMaterialInventories" FunctionName="NeevDatabase.Store.usp_GetALLRawMaterialInventories">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetALLRawMaterialInventories_Result">
+          <ScalarProperty Name="raw_material_inventory_id" ColumnName="raw_material_inventory_id" />
+          <ScalarProperty Name="raw_material_name" ColumnName="raw_material_name" />
+          <ScalarProperty Name="available_quantity" ColumnName="available_quantity" />
+          <ScalarProperty Name="threshhold_value" ColumnName="threshhold_value" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetALLInventoryItems" FunctionName="NeevDatabase.Store.usp_GetALLInventoryItems">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="NeevDatabase.usp_GetALLInventoryItems_Result">
+          <ScalarProperty Name="product_inventory_trans_id" ColumnName="product_inventory_trans_id" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteProductInventoryItem" FunctionName="NeevDatabase.Store.usp_DeleteProductInventoryItem" />
+  </EntityContainerMapping>
+</Mapping>

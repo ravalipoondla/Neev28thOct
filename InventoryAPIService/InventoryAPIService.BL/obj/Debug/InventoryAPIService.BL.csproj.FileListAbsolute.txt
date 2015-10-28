@@ -1,0 +1,11 @@
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.BL.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.BL.pdb
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\EntityFramework.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.DAL.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.Entities.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.DAL.pdb
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\InventoryAPIService.Entities.pdb
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\bin\Debug\EntityFramework.xml
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\obj\Debug\InventoryAPIService.BL.csprojResolveAssemblyReference.cache
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\obj\Debug\InventoryAPIService.BL.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.BL\obj\Debug\InventoryAPIService.BL.pdb

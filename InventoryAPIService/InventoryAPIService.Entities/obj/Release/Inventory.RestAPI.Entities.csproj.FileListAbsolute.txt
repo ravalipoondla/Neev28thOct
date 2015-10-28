@@ -1,0 +1,10 @@
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Release\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Release\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.csprojResolveAssemblyReference.cache
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\bin\Release\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\bin\Release\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.csprojResolveAssemblyReference.cache
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\obj\Release\Inventory.RestAPI.Entities.pdb

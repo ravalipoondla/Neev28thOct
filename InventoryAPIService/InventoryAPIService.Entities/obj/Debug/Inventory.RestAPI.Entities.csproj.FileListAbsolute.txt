@@ -1,0 +1,8 @@
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\Inventory.RestAPI.Entities.pdb
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\Inventory.RestAPI.Entities.dll
+C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\Inventory.RestAPI.Entities.pdb

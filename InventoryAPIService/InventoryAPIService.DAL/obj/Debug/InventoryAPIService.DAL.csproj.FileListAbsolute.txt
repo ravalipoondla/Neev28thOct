@@ -1,0 +1,7 @@
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\InventoryAPIService.DAL.dll.config
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\InventoryAPIService.DAL.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\InventoryAPIService.DAL.pdb
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\EntityFramework.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\EntityFramework.xml
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\obj\Debug\InventoryAPIService.DAL.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.DAL\obj\Debug\InventoryAPIService.DAL.pdb

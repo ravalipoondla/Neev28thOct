@@ -1,0 +1,12 @@
+﻿<Emails>
+      <!--<To>
+	      <Email_ID   ID="Ravali_Poondla@mcafee.com"></Email_ID>
+      </To>-->
+      <Subject>Exported Data from Neev App</Subject>
+      <Message>
+        Please find the attachment for Neev Inventory data.
+      </Message>
+      <CC>
+          <!--<Email_ID ID="Ravali_Poondla@mcafee.com"></Email_ID>-->
+      </CC>
+</Emails>

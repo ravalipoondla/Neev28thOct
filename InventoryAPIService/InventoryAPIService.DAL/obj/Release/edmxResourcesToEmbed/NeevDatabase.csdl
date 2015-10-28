@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="NeevDatabase" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="NeevDatabaseContainer" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="GetUserRoles" ReturnType="Collection(NeevDatabase.usp_GetUserRoles_Result)" />
+    <FunctionImport Name="GetALLInventories" ReturnType="Collection(NeevDatabase.usp_GetALLInventories_Result)" />
+    <FunctionImport Name="AddProductInventoryItem">
+      <Parameter Name="ProductInventoryID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductInventoryName" Mode="In" Type="String" />
+      <Parameter Name="NoOfUnits" Mode="In" Type="Int32" />
+      <Parameter Name="UnitPrice" Mode="In" Type="Double" />
+      <Parameter Name="SoldFlag" Mode="In" Type="Int32" />
+      <Parameter Name="ReturnedFlag" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ValidateUser" ReturnType="Collection(Int32)">
+      <Parameter Name="UserRole" Mode="In" Type="String" />
+      <Parameter Name="PassCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetUserActivities" ReturnType="Collection(NeevDatabase.usp_GetUserActivities_Result)">
+      <Parameter Name="UserRoleId" Mode="In" Type="Int32" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteProductInventory">
+      <Parameter Name="ProductInventoryId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetInventoryData" ReturnType="Collection(NeevDatabase.GetInventoryData_Result)">
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetExportData" ReturnType="Collection(NeevDatabase.usp_GetExportData_Result)">
+      <Parameter Name="ActivityId" Mode="In" Type="Int32" />
+      <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="AddRawMaterialInventoryItem">
+      <Parameter Name="RawMaterialInventoryID" Mode="In" Type="Int32" />
+      <Parameter Name="RawMaterialInventoryName" Mode="In" Type="String" />
+      <Parameter Name="NoOfUnits" Mode="In" Type="Int32" />
+      <Parameter Name="UnitPrice" Mode="In" Type="Double" />
+      <Parameter Name="Threshold" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetALLRawMaterialInventories" ReturnType="Collection(NeevDatabase.usp_GetALLRawMaterialInventories_Result)" />
+    <FunctionImport Name="GetALLInventoryItems" ReturnType="Collection(NeevDatabase.usp_GetALLInventoryItems_Result)" />
+    <FunctionImport Name="DeleteProductInventoryItem">
+      <Parameter Name="ProductInventoryTransId" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="usp_GetUserRoles_Result">
+    <Property Type="Int32" Name="user_role_id" Nullable="false" />
+    <Property Type="String" Name="user_role" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="usp_ValidateUser_Result">
+    <Property Type="Int32" Name="activity_id" Nullable="false" />
+    <Property Type="String" Name="activity_name" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="usp_GetALLInventories_Result">
+    <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
+    <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="usp_GetUserActivities_Result">
+    <Property Type="Int32" Name="activity_id" Nullable="false" />
+    <Property Type="String" Name="activity_name" Nullable="true" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Decimal" Name="price" Nullable="false" Precision="4" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="GetInventoryData_Result">
+    <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
+    <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Double" Name="price" Nullable="false" />
+    <Property Type="Double" Name="percentage" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_GetExportData_Result">
+    <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
+    <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Double" Name="price" Nullable="false" />
+    <Property Type="Double" Name="percentage" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_GetALLRawMaterialInventories_Result">
+    <Property Type="Int32" Name="raw_material_inventory_id" Nullable="false" />
+    <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="available_quantity" Nullable="true" />
+    <Property Type="Int32" Name="threshhold_value" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usp_GetALLInventoryItems_Result">
+    <Property Type="Int32" Name="product_inventory_trans_id" Nullable="false" />
+    <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Double" Name="price" Nullable="true" />
+  </ComplexType>
+</Schema>

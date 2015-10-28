@@ -1,0 +1,4 @@
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\InventoryAPIService.Entities.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\bin\Debug\InventoryAPIService.Entities.pdb
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\InventoryAPIService.Entities.dll
+C:\Users\rpoondla\Documents\visual studio 2012\Projects\InventoryAPIService\InventoryAPIService.Entities\obj\Debug\InventoryAPIService.Entities.pdb

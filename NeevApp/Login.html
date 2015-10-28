@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neev | Inventory Management App</title>     
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>	
+</head>
+<body>
+
+<script type="text/javascript">
+	 $(function () {
+	
+        jQuery.support.cors = true;
+
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI/User/Roles",
+            success: function (data) {
+                $.each(data.UserRolesResult, function (i, item) {
+                    $('#ddlUserRoles').append($('<option></option>').val(item.Id).html(item.Name));
+                });
+                
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+            }
+        });
+
+        $('#btnLogin').click(function () {
+            if (ValidateUserInput()) {
+			 var urlVal = "http://rpneev.com/InventoryAPI/Validate/User/" + $('#ddlUserRoles option:selected').text() + "/" +$('#txtPassCode').val();
+			 
+                $('#lblValidation').text('');
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    url: "http://rpneev.com/InventoryAPI/Validate/User/" + $('#ddlUserRoles option:selected').text() + "/" +$('#txtPassCode').val(),
+                    success: function (data) {
+                        if (data.ValidateUserResult != true) {
+                            $('#lblValidation').text('Incorrect user role and passcode entered');
+                        }
+                        else {
+                            var roleId = $('#ddlUserRoles option:selected').val();
+                            var url = "/NeevApp/Dashboard.html?roleId=" + roleId;
+                            window.location.href = url;
+                        }
+                    },
+                    error: function (jqxhr, textStatus, errorThrown) {
+                        $('#lblValidation').text('Incorrect user role and passcode entered');
+                    }
+                });
+            }
+        });
+
+        function ValidateUserInput() {
+            if ($('#ddlUserRoles').val() == "0") {
+                $('#lblValidation').text('Please Select User Role');
+                return false;
+            }
+            return true;
+        }
+    });
+
+</script>
+<div id="login" class="bodycontainer">
+<h1><img src="images/logo.png" alt="Neev" title="Neev"></h1>
+<form action="javascript:void(0);" method="get">
+<fieldset>
+<div><label >Select User Role</label>
+<select id="ddlUserRoles" name="ddlUserRoles" ><option value="0">Select user Role</option></select></div>
+<div><label >Enter PassCode</label> <input id="txtPassCode"  type="password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></div>
+<label id="lblValidation" class="labelValidationcss1"> </label>
+<div><input type="submit" value="Login" id="btnLogin"></div>
+<!--<div class="forgot"><a href="">Forgot your Passcode?</a></div>-->
+</fieldset>
+</form>
+</div> <!-- end login --> <!--  <input type="dropdown" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "> -->

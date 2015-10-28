@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neev | Inventory Management App</title>     
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+  </head>
+  <body class="rawmaterials">
+  
+  <script type="text/javascript">
+	
+    $(function () {
+	
+        jQuery.support.cors = true;
+			
+			$.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI/Inventory/Product/Items",
+            success: function (data) {
+                $.each(data.GetAllProductInventoryItemsResult, function (i, item) {
+					var addItem = '<div class="tabformrow"><div class="formcheck"><input type="checkbox"' + ' id="chkSelectItem_' + item.Id +'"></div><div class="formright"><span style="padding-right:1em;">Inventory Name :</span>'+item.Name+'<br /><br/> Quantity:'+ item.Quantity + '<span style="padding-left:3em;color:black"> Price :'+item.Price + '</span></div></div>';
+		   
+                    $('#divItems').append(addItem);
+                });
+                
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+            }
+        });
+		
+		function GetAllInventories()
+		{
+			$.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI/Inventory/Product",
+            success: function (data) {
+                $.each(data.GetAllProductInventoriesResult, function (i, item) {
+                    
+					var addItem = '<div class="tabformrow"><div class="formcheck"><input type="checkbox"' + ' id="chkDISelectItem_' + item.Id +'"></div><div class="formright"><span style="padding-right:1em;">Inventory Name :</span>'+item.Name+'<br /><br/></div></div>';
+					
+					/*
+					var addItem = '<div class="tabformrow"><div class="formcheck"><input type="checkbox"' + ' id="chkSelectItem_' + item.Id +'"></div><div class="formright"><span style="padding-right:1em;">Inventory Name :</span>'+item.Name+'<br /><br/>'+ item.Quantity + '<span style="padding-left:3em;color:black"> Price :'+item.Price + '</span></div></div>';
+					*/
+					
+                    $('#divItemsDI').append(addItem);
+					
+                });
+                
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+            }
+			});
+		}
+			
+		 $('#chkSelectAll').click(function () {
+			if ($(this).is(':checked')) {
+				$("input[id*=chkSelectItem_]:enabled").attr("checked", "checked");
+			}
+			else {
+				//$(".chkSelect").removeAttr("checked");
+				$("input[id*=chkSelectItem_]:enabled").removeAttr("checked");
+			}
+    });
+		
+		$('#btnCancel').click(function () {
+			$('#chkSelectAll').removeAttr("checked");
+			$("input[id*=chkSelectItem_]:enabled").removeAttr("checked");
+		
+		});
+		
+		$('#btnDeleteInvItems').click(function () {
+			
+			$("input[id*='chkSelectItem_']:checked").each(function () {
+			
+			var idSplit = $(this).attr('id').split('_');
+			
+            var productInventoryTransId = idSplit[1];
+					
+			
+			$.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI/Inventory/Product/Item/Delete/" + productInventoryTransId,
+            success: function (data) {
+				
+				 if (data != true) {
+                            $('#lblDeleteProductInvItemValidation').text('Error while deleting the Inventory item(s)');
+                        }
+                        else {
+                           $('#lblDeleteProductInvItemValidation').text('Selected Inventory item(s) deleted successfully');
+                        }
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+				$('#lblDeleteProductInvItemValidation').text('Error while deleting Inventory item(s) ');
+            }
+			});
+		
+			});
+			//$('#lblDeleteProductInvItemValidation').text('Error while deleting the Inventory item(s)');
+		});
+		
+		
+		 $("input[name=Delete]:radio").change(function () {
+					var selectedId = $(this).val();
+						if(selectedId == 1)
+						{
+							$('#DeletProductInvenoryItem').show();
+							$('#DeletProductInvenory').hide();
+						}
+						else if(selectedId == 2)
+						{
+							GetAllInventories();
+							$('#DeletProductInvenory').show();
+							$('#DeletProductInvenoryItem').hide();
+						}
+			});
+			
+			
+			
+			$('#btnDeleteProduct').click(function () {
+			
+			$("input[id*='chkDISelectItem_']:checked").each(function () {
+			
+			var idSplit = $(this).attr('id').split('_');
+			
+            var productInventoryId = idSplit[1];
+					
+			
+			$.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI//Inventory/Product/Delete/" + productInventoryId,
+            success: function (data) {
+				
+				 if (data != true) {
+                            $('#lblDeleteProductValidation').text('Error while deleting the Inventory(s)');
+                        }
+                        else {
+                           $('#lblDeleteProductValidation').text('Selected Inventory(s) deleted successfully');
+                        }
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+				$('#lblDeleteProductValidation').text('Error while deleting Inventory(s) ');
+            }
+			});
+		
+			});
+			//$('#lblDeleteProductValidation').text('Error while deleting the Inventory item(s)');
+		});
+		
+			
+			
+        });
+</script>
+
+  		<header class="hdrbar">
+  		  <nav class="hdrmenu"><i class="fa fa-arrow-circle-left fa-fw"></i>Delete Product Inventory</nav>	  	 
+		</header>
+		<section class="bodycontainer">
+		<section class="navbar">
+  			<nav class="topnav"><a href="/NeevApp/ProductInventory.html">Add</a> <a href="/NeevApp/DeleteProductInventory.html" class="highlightRed">Delete</a></nav>
+		<!--<div class="searchbar">
+			 <input type="search" name="" placeholder="Search Products">
+			 <button>Search</button>
+			 <select required class="filterby">
+				     <option value="">Filter By</option>
+					 <option value="volvo">Products</option>
+					 <option value="saab">Category</option>
+					 <option value="mercedes">date</option>
+		     </select>
+		</div>-->
+		</section>
+		   <form>
+		   <div class="formrow"> 
+					<nav class="topnav">
+						<input type="radio" name="Delete" id="DeleteProductInventoryItem" value="1" checked>Delete Inventory Item
+						<input type="radio" name="Delete" id="DeleteProductInventory" value="2">Delete Inventory
+				
+					</nav>
+		   </div>
+		   <div id="DeletProductInvenoryItem" class="divShow">
+	       <div class="tabformrow">
+		     <div class="formcheck">
+			 	<input type="checkbox" id="chkSelectAll"></div>
+			 	<div class="formright">Select All</div>
+		   </div>
+		   <div id="divItems" class="itemconfiguration">
+	       	
+		   </div>
+		   <div class="formrow">	  
+				<label id="lblDeleteProductInvItemValidation" class="labelValidationcss"></label></br></br>
+				<button id="btnDeleteInvItems">Delete InventoryItems</button>
+				<button id="btnCancelInvItems" formnovalidate>Cancel</button>
+			</div> 
+		</div>			
+		
+		<div id="DeletProductInvenory" class="divHide"> 
+		   <div class="tabformrow">
+		     <div class="formcheck">
+			 	<input type="checkbox" id="chkDISelectAll"></div>
+			 	<div class="formright">Select All</div>
+		   </div>
+		   <div id="divItemsDI" class="itemconfiguration">
+	       	
+		   </div>
+				<div class="formrow">
+					<label id="lblDeleteProductValidation" class="labelValidationcss"></label></br></br>
+					<button id="btnDeleteProduct">Delete Inventory </button>
+					<button id="btnCancelDeleteProduct" formnovalidate>Cancel</button>
+				</div>  
+			</div>
+			
+		</form>
+	</section>
+  </body>
+</html>

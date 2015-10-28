@@ -1,0 +1,261 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow|PT+Sans|Source+Sans+Pro:400,600,700);
+/* line 1, _topnav.scss */
+.hdrbar {
+  background-color: #ab1a0a;
+  color: #fff;
+  padding: 5px;
+}
+/* line 5, _topnav.scss */
+.hdrbar .hdrmenu {
+  display: inline-block;
+  font-size: 0.8em;
+  width: 40%;
+  display: inline-block;
+}
+/* line 11, _topnav.scss */
+.hdrbar .right {
+  width: 50%;
+  text-align: right;
+  padding-right: 5px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+/* line 18, _topnav.scss */
+.hdrbar h1 {
+  display: inline-block;
+  font-size: 1em;
+  font-family: "PT Sans Narrow", sans-serif;
+}
+
+/* line 26, _topnav.scss */
+.sidenav {
+  display: none;
+  background-color: #575050;
+  width: 300px;
+  z-index: 2;
+  position: absolute;
+  color: #fff;
+}
+/* line 33, _topnav.scss */
+.sidenav ul {
+  margin: 0;
+  padding: 0;
+}
+/* line 36, _topnav.scss */
+.sidenav ul li {
+  margin: 0;
+  list-style: none;
+  border-bottom: 1px solid #fff;
+}
+/* line 40, _topnav.scss */
+.sidenav ul li a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  padding: 5px;
+}
+/* line 46, _topnav.scss */
+.sidenav ul li a i {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 30px;
+}
+/* line 53, _topnav.scss */
+.sidenav ul li a:hover {
+  background-color: #ab1a0a;
+}
+
+/* line 61, _topnav.scss */
+ul.mainnav {
+  background-color: #eee;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+/* line 68, _topnav.scss */
+ul.mainnav li {
+  vertical-align: top;
+  width: 124px;
+  margin: 0;
+  list-style: none;
+  display: inline-block;
+  margin: 3px;
+  height: 124px;
+  background-color: #F3F2F2;
+  border: 1px solid #fff;
+}
+/* line 78, _topnav.scss */
+ul.mainnav li a {
+  margin-top: 5px;
+  vertical-align: top;
+  color: #575050;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 0.9em;
+}
+/* line 86, _topnav.scss */
+ul.mainnav li a i {
+  display: block;
+  padding-top: 15px;
+}
+/* line 91, _topnav.scss */
+ul.mainnav li a:hover {
+  color: #ab1a0a;
+}
+
+/* line 97, _topnav.scss */
+.secNav {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  overflow: scroll-x;
+}
+/* line 102, _topnav.scss */
+.secNav ul {
+  margin: 0 auto;
+  text-align: center;
+  padding: 0;
+}
+/* line 106, _topnav.scss */
+.secNav ul li {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px;
+}
+/* line 110, _topnav.scss */
+.secNav ul li a {
+  text-decoration: none;
+  color: #101010;
+  font-size: 0.9em;
+  display: inline-block;
+  border: 2px solid transparent;
+}
+/* line 115, _topnav.scss */
+.secNav ul li a:hover, .secNav ul li a:active {
+  border-bottom: #ab1a0a solid 2px;
+}
+
+/* line 1, _forms.scss */
+#purchaseOrderDetails, #supplierDetails, #addTaxDetails, #editTaxDetails {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  max-width: 950px;
+  vertical-align: top;
+  margin-top: 10px;
+}
+
+/* line 10, _forms.scss */
+form {
+  background: #fff none repeat scroll 0 0;
+  margin: 0 auto;
+  padding: 5px;
+  text-align: center;
+  vertical-align: top;
+  width: 90%;
+  vertical-align: top;
+  text-align: left;
+  padding: 5px;
+}
+/* line 18, _forms.scss */
+form .formrow {
+  text-align: left;
+  padding: 5px;
+  padding-top: 10px;
+}
+/* line 22, _forms.scss */
+form span {
+  font-weight: 400;
+  font-size: 1.0em;
+  display: inline-block;
+  color: #ab1a0a;
+}
+/* line 25, _forms.scss */
+form .formtitle {
+  width: 200px;
+  text-align: left;
+  font-size: 1.0em;
+  color: #101010;
+  display: inline-block;
+  font-size: 0.9em;
+  vertical-align: top;
+}
+/* line 33, _forms.scss */
+form .formright {
+  text-align: left;
+  color: #101010;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 38, _forms.scss */
+form .formright input, form .formright select {
+  width: 250px;
+  font-size: 0.8em;
+}
+
+/* line 44, _forms.scss */
+.poSection1 {
+  border: 2px solid #101010;
+  width: 90%;
+  min-width: 300px;
+  text-align: center;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+/* line 52, _forms.scss */
+button {
+  background-color: #ab1a0a;
+  color: #fff;
+  height: 40px;
+  text-align: center;
+  margin-right: 10px;
+  margin-top: 25px;
+}
+
+/* line 58, _forms.scss */
+.taxformrow {
+  display: table;
+  margin: 0 auto;
+}
+/* line 59, _forms.scss */
+.taxformrow .formtitle, .taxformrow .formright {
+  display: table-cell;
+}
+/* line 60, _forms.scss */
+.taxformrow .formtitle input {
+  width: 200px;
+  margin: 10px;
+}
+/* line 61, _forms.scss */
+.taxformrow .formright input {
+  width: 50px;
+  margin: 10px;
+}
+
+/* line 6, main.scss */
+body.html {
+  height: 100%;
+}
+
+/* line 8, main.scss */
+body {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1024px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.2em;
+  font-color: #101010;
+}
+
+/* line 17, main.scss */
+.bodycontainer {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #eee;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>  
+ <title>Charts</title>
+<script src="./scripts/canvasjs.js"></script> 
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+<script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function () {
+		
+        jQuery.support.cors = true;
+		getProductItemsData(3);
+		function getProductItemsData(metrixId)
+		{
+			jsonObj = [];
+			$.ajax({
+				type: "GET",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				url: "http://rpneev.com/InventoryAPI/Inventory/Products",
+				success: function (data) {
+					$.each(data.GetAllInventoryDataResult, function (i, item) {
+					
+						var y = item.Percentage;
+						var label = item.Name + '(%):';
+						if(metrixId == 1){
+							y = item.Quantity;
+							label = item.Name + '(#):';
+						}
+						if(metrixId == 2){
+							y = item.Price;
+							label = item.Name + '(Rs/-):';
+						}
+						item1 = {}
+						item1 ["y"] = y;
+						item1 ["legendText"] = item.Name;
+						item1 ["label"] = label;//item.Name;
+						jsonObj.push(item1);
+					});
+					showCharts(jsonObj);
+				},
+				error: function (jqxhr, textStatus, errorThrown) {
+				//alert('E');
+				}
+			});
+			return jsonObj;
+		}
+		
+		function showCharts(jsonObj)
+		{
+		
+				var chart = new CanvasJS.Chart("chartContainer",
+				{
+					
+							animationEnabled: true,
+					legend:{
+						//verticalAlign: "center",
+						horizontalAlign: "center",
+						fontSize: 15,
+						fontFamily: "Helvetica"        
+					},
+					theme: "theme2",
+					data: [
+					{        
+						type: "pie",       
+						indexLabelFontFamily: "Garamond",       
+						indexLabelFontSize: 10,
+						indexLabel: "{label} {y}",
+						startAngle:-20,      
+						showInLegend: false,
+						toolTipContent:"{legendText} {y}",
+						dataPoints: jsonObj
+					}
+					]
+				});
+				chart.render();
+		}
+		
+		 $("input[name=Metrix]:radio").change(function () {
+			var metrixId = $(this).val();
+			getProductItemsData(metrixId);
+		});
+		
+});
+
+
+</script>
+
+</head>
+<body>
+<div id="login" class="bodycontainer">
+<h1><img src="images/logo.png" alt="Neev" title="Neev"></h1>
+<form action="javascript:void(0);" method="get" class="chartClass">
+<fieldset>
+<label>Choose Metrics: </label>
+<input type="radio" name="Metrix" id="Quantity" value="1">Quantity
+<input type="radio" name="Metrix" id="Price" value="2">Price
+<input type="radio" name="Metrix" id="Percentage" value="3" checked>Percentage
+</br></br>
+<div id="chartContainer"  style="height: 350%; width: 250%;" ></div>
+</fieldset>
+</form>
+</div> 
+</body>
+</html>

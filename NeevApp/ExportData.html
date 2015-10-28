@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Export Data</title>
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+	
+</head>
+<body>
+
+<script type="text/javascript">
+	
+    $(function () {
+	
+        jQuery.support.cors = true;
+
+        var roleId = 1; //GetParameterValues('roleId');
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://rpneev.com/InventoryAPI/User/Activities/" + roleId,
+            success: function (data) {
+                $.each(data.GetUserActivitiesResult, function (i, item) {
+                    //$('#divActivities').append('<input id="chk' + item.Name + '"></input><input class="btnActivities" type="submit" id="btn' + item.Name + '" value="' + item.Name + '\t\t' + item.quantity + '\nRs: ' + item.price + '" /></br></br>');
+                    //alert('<input id="chk' + item.Name + '"></input> <div class="btnActivities" id="div' + item.Name + '"><span style="display:block;float:left;width:150px;">' + //item.Name +'</br>Rs: ' + item.price +'</span><span style="display:block;float:right;width:50px;">' + item.quantity + '</span></button></br></br>');
+					if(item.Id == 1 || item.Id==2 || item.Id==5)
+					{
+					$('#divInventoryData').append('<div class="btnActivities" id="div' + item.Name + '"><input style="align:left;display:block;float:left;width:15px;margin-right:8px;" type="checkbox" id="chk' + item.Name + '" value="'+ item.Id + '" > </input> <span>&nbsp;&nbsp;&nbsp;</span> <span style="display:block;float:left;width:150px;color:#fff; ">' + item.Name +'</br>Rs: ' + item.price +'</span><span style="display:block;float:right;width:50px;color:#fff; ">' + item.quantity + '</span><div style="clear:both;"></div></div></br>');
+                    }
+                });
+
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+			alert('error');
+			alert(textStatus);
+            }
+        });
+
+        function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    return urlparam[1];
+                }
+            }
+        } 
+		
+		$('#btnSend').click(function () {
+			var activitiesIDs = '';
+			var fromDate = '';
+			var toDate = '';
+			$("INPUT[type='checkbox']:checked").each(function (index, option) {
+				activitiesIDs += $(this).val() + ',';
+			});
+			
+            if (ValidateUserInput()) {
+			 var exportFormatId = $("input[type='radio'][name='ExcelFormat']:checked").val();
+			 var urlVal = "http://rpneev.com/InventoryAPI/Inventory/Product/Export/Email/"+ $('#txtEmail').val() + "/" + activitiesIDs + "/" + exportFormatId + "?fromDate="+ fromDate+"&toDate="+toDate;
+			 //alert(urlVal);
+                $('#lblValidation').text('');
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    url: urlVal,
+                    success: function (data) {
+					//alert(data.SendExportDataToEmailResult);
+                        if (data.SendExportDataToEmailResult != true) {
+                            $('#lblValidation').text('There is an error sending email.');
+                        }
+                        else {
+							$('#lblValidation').text('Email has been sent with export data.');
+                            /*var roleId = $('#ddlUserRoles option:selected').val();
+                            var url = "/NeevApp/Activities.html?roleId=" + roleId;
+                            window.location.href = url;*/
+                        }
+                    },
+                    error: function (jqxhr, textStatus, errorThrown) {
+                        $('#lblValidation').text('Incorrect user role and passcode entered');
+                    }
+                });
+            }
+        });
+
+        function ValidateUserInput() {
+			var selected = $("input[type='radio'][name='ExcelFormat']:checked");
+			if(selected.length = 0)
+			{
+				$('#lblValidation').text('Please select Export Format');
+                return false;
+			}
+            if ($('#txtEmail').val() == "") {
+                $('#lblValidation').text('Please enter the email address');
+                return false;
+            }
+            return true;
+        }
+    });
+
+
+</script>
+<div id="login" class="bodycontainer">
+<h1><img src="images/logo.png" alt="Neev" title="Neev"></h1>
+<form action="javascript:void(0);" method="get">
+<fieldset>
+<div id="divInventoryData">
+
+</div>
+</fieldset>
+<label>Select Export Format: </label>
+<input id="rdPDF" type="radio" name="ExcelFormat" value="1" checked>Excel
+<input id="rdExcel" type="radio" name="ExcelFormat" value="2" >PDF 
+<div>
+<label >Send Export to:</label> <input id="txtEmail"  type="text"></div>
+<label id="lblValidation" class="labelValidationcss1"></label>
+<div><input type="submit" value="Send" id="btnSend"></div>
+</fieldset>
+</form>
+</div> 
+</body>
+</html>

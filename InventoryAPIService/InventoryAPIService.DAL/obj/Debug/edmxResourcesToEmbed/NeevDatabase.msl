@@ -16,6 +16,7 @@
         <ComplexTypeMapping TypeName="NeevDatabase.usp_GetALLInventories_Result">
           <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
           <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
@@ -62,6 +63,7 @@
           <ScalarProperty Name="raw_material_name" ColumnName="raw_material_name" />
           <ScalarProperty Name="available_quantity" ColumnName="available_quantity" />
           <ScalarProperty Name="threshhold_value" ColumnName="threshhold_value" />
+          <ScalarProperty Name="price" ColumnName="price" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

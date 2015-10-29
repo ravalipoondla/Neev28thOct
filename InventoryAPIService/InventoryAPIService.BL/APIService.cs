@@ -48,7 +48,7 @@ namespace Inventory.RestAPI.BL
         {
             var context = new NeevDatabaseContainer();
             var productInventories = (from productInventory in context.GetALLInventories()
-                                 select new ProductInventory { Id = productInventory.product_inventory_id, Name = productInventory.product_name }).ToList<ProductInventory>();
+                                 select new ProductInventory { Id = productInventory.product_inventory_id, Name = productInventory.product_name,Quantity=productInventory.quantity.Value }).ToList<ProductInventory>();
             return productInventories;
         }
 
@@ -485,7 +485,7 @@ namespace Inventory.RestAPI.BL
         {
             var context = new NeevDatabaseContainer();
             var rawMaterialInventories = (from rawMaterialInventory in context.GetALLRawMaterialInventories()
-                                          select new RawMaterialInventory { Id = rawMaterialInventory.raw_material_inventory_id, Name = rawMaterialInventory.raw_material_name,Threshold= rawMaterialInventory.threshhold_value,Quantity=rawMaterialInventory.available_quantity.Value }).ToList<RawMaterialInventory>();
+                                          select new RawMaterialInventory { Id = rawMaterialInventory.raw_material_inventory_id, Name = rawMaterialInventory.raw_material_name,Threshold= rawMaterialInventory.threshhold_value,Quantity=rawMaterialInventory.available_quantity.Value,UnitPrice = rawMaterialInventory.price.Value}).ToList<RawMaterialInventory>();
             return rawMaterialInventories;
         }
 

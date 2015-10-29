@@ -17,5 +17,6 @@ namespace Inventory.RestAPI.DAL
         public string raw_material_name { get; set; }
         public Nullable<int> available_quantity { get; set; }
         public int threshhold_value { get; set; }
+        public Nullable<double> price { get; set; }
     }
 }

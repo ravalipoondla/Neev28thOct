@@ -11,6 +11,5 @@ C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\Inve
 C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\Inventory.RestAPI.DAL.pdb
 C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\EntityFramework.dll
 C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\bin\Debug\EntityFramework.xml
-C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\obj\Debug\Inventory.RestAPI.DAL.csprojResolveAssemblyReference.cache
 C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\obj\Debug\Inventory.RestAPI.DAL.dll
 C:\Users\rpoondla\Documents\Visual Studio 2012\Projects\InventoryAPIService\InventoryAPIService\InventoryAPIService.DAL\obj\Debug\Inventory.RestAPI.DAL.pdb

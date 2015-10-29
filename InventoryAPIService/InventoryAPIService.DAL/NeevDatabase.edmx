@@ -95,7 +95,7 @@
           <FunctionImport Name="GetALLRawMaterialInventories" ReturnType="Collection(NeevDatabase.usp_GetALLRawMaterialInventories_Result)" />
           <FunctionImport Name="GetALLInventoryItems" ReturnType="Collection(NeevDatabase.usp_GetALLInventoryItems_Result)" />
           <FunctionImport Name="DeleteProductInventoryItem">
-            <Parameter Name="ProductInventoryTransId" Mode="In" Type="Int32" />
+          <Parameter Name="ProductInventoryTransId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="usp_GetUserRoles_Result">
@@ -105,10 +105,6 @@
         <ComplexType Name="usp_ValidateUser_Result">
           <Property Type="Int32" Name="activity_id" Nullable="false" />
           <Property Type="String" Name="activity_name" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="usp_GetALLInventories_Result">
-          <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
-          <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="usp_GetUserActivities_Result">
           <Property Type="Int32" Name="activity_id" Nullable="false" />
@@ -135,12 +131,18 @@
           <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="available_quantity" Nullable="true" />
           <Property Type="Int32" Name="threshhold_value" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetALLInventoryItems_Result">
           <Property Type="Int32" Name="product_inventory_trans_id" Nullable="false" />
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
           <Property Type="Double" Name="price" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetALLInventories_Result">
+          <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
+          <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="quantity" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -163,6 +165,7 @@
               <ComplexTypeMapping TypeName="NeevDatabase.usp_GetALLInventories_Result">
                 <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -209,6 +212,7 @@
                 <ScalarProperty Name="raw_material_name" ColumnName="raw_material_name" />
                 <ScalarProperty Name="available_quantity" ColumnName="available_quantity" />
                 <ScalarProperty Name="threshhold_value" ColumnName="threshhold_value" />
+                <ScalarProperty Name="price" ColumnName="price" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

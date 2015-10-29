@@ -107,7 +107,7 @@ namespace Inventory.RestAPI.Service
         /// Get all Proudct Invntories
         /// </summary>
         /// <returns>returns all Product Inventories</returns>
-        [WebGet(UriTemplate = "/Inventory/Product/Items?fromDate={fromDate}&toDate={toDate}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [WebGet(UriTemplate = "/Inventory/Products?fromDate={fromDate}&toDate={toDate}", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         [OperationContract]
         public List<ProductInventoryItem> GetAllInventoryData(string fromDate,string toDate)
         {
@@ -205,5 +205,25 @@ namespace Inventory.RestAPI.Service
         {
             return this.apiService.DeleteProductInventoryItem(Convert.ToInt32(productInventoryTranId));
         }
+
+
+        /// <summary>
+        /// adds Sales Details
+        /// </summary>
+        /// <returns>returns success or failure flag</returns>
+        [WebInvoke(UriTemplate = "/Inventory/Product/Sales", Method = "POST")]
+        [OperationContract]
+        public bool AddProductSales(string productSoldItem)
+        {
+            List<ProductInventory> lstProduct = (List<ProductInventory>)JsonConvert.DeserializeObject(productSoldItem, typeof(List<ProductInventory>));
+
+            foreach (ProductInventory pi in lstProduct)
+            {
+                this.apiService.AddProductInventory(pi);
+            }
+
+            return true;
+        }
+
     }
 }

@@ -1,39 +1,90 @@
 ﻿<!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Export Data</title>
-    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
-    <script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-	
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neev | Inventory Management App</title>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
+    <link rel="stylesheet" href="./font-awesome-4.4.0/css/font-awesome.min.css" />
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+   <style>
+<!--
+#customdt{
+	display:none;
+}
+#todaydt{
+	display:block;
+}
+-->
+</style>
+<script>
+
+    function todaydatefunc() {
+        //alert("today");
+        document.getElementById("todaydt").style.display = "block";
+        document.getElementById("customdt").style.display = "none";
+        document.getElementById("datepicker-from").value = "";
+        document.getElementById("datepicker-to").value = "";
+    }
+    function customdatefunc() {
+        //alert("custom");
+        document.getElementById("todaydt").style.display = "none";
+        document.getElementById("customdt").style.display = "block";
+    }
+</script>
 <script type="text/javascript">
-	
+
+
+
     $(function () {
-	
+
+
+        $("#datepicker-from").datepicker();
+        $("#datepicker-to").datepicker();
+        $("#datepicker-today").datepicker();
+        var datetdy = $.datepicker.formatDate('mm/dd/yy', new Date());
+        $("#datepicker-today").val(datetdy);
         jQuery.support.cors = true;
 
         var roleId = 1; //GetParameterValues('roleId');
+
+        //var roleId = GetParameterValues('roleId');
+        //roleId = roleId.replace('#', '');
+
+        $('a').each(function () {
+            var href = $(this).attr('href');
+            $(this).attr("href", href + '?roleId=' + roleId);
+        });
+
+       
+
         $.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: "http://rpneev.com/InventoryAPI/User/Activities/" + roleId,
+            url: "http://neevtest.com:8080/InventoryAPI/User/Activities/" + roleId,
             success: function (data) {
                 $.each(data.GetUserActivitiesResult, function (i, item) {
                     //$('#divActivities').append('<input id="chk' + item.Name + '"></input><input class="btnActivities" type="submit" id="btn' + item.Name + '" value="' + item.Name + '\t\t' + item.quantity + '\nRs: ' + item.price + '" /></br></br>');
                     //alert('<input id="chk' + item.Name + '"></input> <div class="btnActivities" id="div' + item.Name + '"><span style="display:block;float:left;width:150px;">' + //item.Name +'</br>Rs: ' + item.price +'</span><span style="display:block;float:right;width:50px;">' + item.quantity + '</span></button></br></br>');
-					if(item.Id == 1 || item.Id==2 || item.Id==5)
-					{
-					$('#divInventoryData').append('<div class="btnActivities" id="div' + item.Name + '"><input style="align:left;display:block;float:left;width:15px;margin-right:8px;" type="checkbox" id="chk' + item.Name + '" value="'+ item.Id + '" > </input> <span>&nbsp;&nbsp;&nbsp;</span> <span style="display:block;float:left;width:150px;color:#fff; ">' + item.Name +'</br>Rs: ' + item.price +'</span><span style="display:block;float:right;width:50px;color:#fff; ">' + item.quantity + '</span><div style="clear:both;"></div></div></br>');
+                    if (item.Id == 1 || item.Id == 2 || item.Id == 5) {
+                        $('#divInventoryData').append('<div class="btnActivities" id="div' + item.Name + '"><div><strong><input type="checkbox" id="chk' + item.Name + '" value="' + item.Id + '" > </input>  ' + item.Name + '&nbsp;</strong><br />' + '<span>Total Price(Rs.): ' + '&nbsp;' + item.price + '</span>' + '<span>Quantity : &nbsp;' + item.quantity + '</span></div></div>');
+                        /*$('#divInventoryData').append('<div class="btnActivities" id="div' + item.Name + '"><input style="align:left;display:block;float:left;width:15px;margin-right:8px;" type="checkbox" id="chk' + item.Name + '" value="' + item.Id + '" > </input> <span>&nbsp;&nbsp;&nbsp;</span> <span style="display:block;float:left;width:150px;color:#fff; ">' + item.Name + '</br>Rs: ' + item.price + '</span><span style="display:block;float:right;width:50px;color:#fff; ">' + item.quantity + '</span><div style="clear:both;"></div></div></br>');*/
                     }
                 });
 
             },
             error: function (jqxhr, textStatus, errorThrown) {
-			alert('error');
-			alert(textStatus);
+                alert('error');
+                alert(textStatus);
             }
         });
 
@@ -45,20 +96,37 @@
                     return urlparam[1];
                 }
             }
-        } 
-		
-		$('#btnSend').click(function () {
-			var activitiesIDs = '';
-			var fromDate = '';
-			var toDate = '';
-			$("INPUT[type='checkbox']:checked").each(function (index, option) {
-				activitiesIDs += $(this).val() + ',';
-			});
-			
+        }
+
+        $('#btnSend').click(function () {
+            var activitiesIDs = '';
+            var fromDate = '';
+            var toDate = '';
+
+            $("INPUT[type='checkbox']:checked").each(function (index, option) {
+                activitiesIDs += $(this).val() + ',';
+            });
+
+            activitiesIDs = activitiesIDs.replace(/,|,$/g, '');
+
             if (ValidateUserInput()) {
-			 var exportFormatId = $("input[type='radio'][name='ExcelFormat']:checked").val();
-			 var urlVal = "http://rpneev.com/InventoryAPI/Inventory/Product/Export/Email/"+ $('#txtEmail').val() + "/" + activitiesIDs + "/" + exportFormatId + "?fromDate="+ fromDate+"&toDate="+toDate;
-			 //alert(urlVal);
+                fromDate = '';//$("#datepicker-today").val();
+
+                if ($("#datepicker-from").val() != '') {
+                    fromDate = $("#datepicker-from").val();
+                }
+                //fromDate = $("#datepicker-from").val;
+                toDate = $("#datepicker-to").val();
+                if ($("#datepicker-to").val() == '') {
+                    toDate = '';
+                }
+                //alert("from date: "+fromDate+"to date"+toDate);
+                //alert("from date: "+fromDate);
+                //fromDate = ''; //$('#fromDt').val;
+                //toDate = '';//(iDtRangeSel == 1) ? $('#toDt').val : $('#fromDt').val;
+                var exportFormatId = $("input[type='radio'][name='ExcelFormat']:checked").val();
+                var urlVal = "http://neevtest.com:8080/InventoryAPI/Inventory/Product/Export/Email/" + $('#txtEmail').val() + "/" + activitiesIDs + "/" + exportFormatId + "?fromDate=" + fromDate + "&toDate=" + toDate;
+                //alert(urlVal);
                 $('#lblValidation').text('');
                 $.ajax({
                     type: "GET",
@@ -72,52 +140,93 @@
                         }
                         else {
 							$('#lblValidation').text('Email has been sent with export data.');
-                            /*var roleId = $('#ddlUserRoles option:selected').val();
-                            var url = "/NeevApp/Activities.html?roleId=" + roleId;
-                            window.location.href = url;*/
                         }
                     },
                     error: function (jqxhr, textStatus, errorThrown) {
-                        $('#lblValidation').text('Incorrect user role and passcode entered');
+                        $('#lblValidation').text('Error Occured while sending the exported data');
                     }
                 });
             }
         });
 
+
+
         function ValidateUserInput() {
-			var selected = $("input[type='radio'][name='ExcelFormat']:checked");
-			if(selected.length = 0)
-			{
-				$('#lblValidation').text('Please select Export Format');
+
+
+
+            var checkboxLength = $("INPUT[type='checkbox']:checked").length;
+
+            if (checkboxLength == 0) {
+                $('#lblValidation').text('Please check checkboxes to export the data of your choice');
                 return false;
-			}
+            }
+            var selected = $("input[type='radio'][name='ExcelFormat']:checked");
+            if (selected.length = 0) {
+                $('#lblValidation').text('Please select Export Format');
+                return false;
+            }
             if ($('#txtEmail').val() == "") {
                 $('#lblValidation').text('Please enter the email address');
                 return false;
             }
             return true;
         }
+
+
+
     });
 
 
-</script>
-<div id="login" class="bodycontainer">
-<h1><img src="images/logo.png" alt="Neev" title="Neev"></h1>
-<form action="javascript:void(0);" method="get">
-<fieldset>
-<div id="divInventoryData">
 
-</div>
-</fieldset>
-<label>Select Export Format: </label>
-<input id="rdPDF" type="radio" name="ExcelFormat" value="1" checked>Excel
-<input id="rdExcel" type="radio" name="ExcelFormat" value="2" >PDF 
-<div>
-<label >Send Export to:</label> <input id="txtEmail"  type="text"></div>
-<label id="lblValidation" class="labelValidationcss1"></label>
-<div><input type="submit" value="Send" id="btnSend"></div>
-</fieldset>
-</form>
-</div> 
+</script>
+</head>
+<body class="export">
+    <header class="hdrbar">
+        <nav class="hdrmenu"><a href="/NeevForms/dashboard.html"><i class="fa fa-arrow-circle-left fa-fw"></i></a>Export Data</nav>
+    </header>
+    <section class="bodycontainer">
+        <div id="btnrow">
+            <fieldset>
+                <legend>1: Select Date range:</legend>
+                <div class="radioselect" >
+                <input type="radio" value =" " name="rdo" id="today" onclick="todaydatefunc()" checked>today
+	<input type="radio" value =" " name="rdo"  id="custom" onclick="customdatefunc()">custom<br/>
+                    </div>
+                <br />
+                <div id="todaydt">Date:
+                    <input type="text" id="datepicker-today" value="" readonly="readonly">
+                </div>
+                <div id="customdt">From Date:
+                    <input type="text" id="datepicker-from" value="" readonly="readonly">
+                    To Date:
+                    <input type="text" id="datepicker-to" value="" readonly="readonly">
+                </div>
+                    
+            </fieldset>
+        </div>
+        <form>
+            <fieldset>
+                <legend>2: Select Data To be exported:</legend>
+                <div id="divInventoryData"></div>
+            </fieldset>
+            <fieldset>
+                <legend>3: Export data as:</legend>
+                <div class="radioselect">
+                    <div>
+                        <input id="rdPDF" type="radio" name="ExcelFormat" value="1" checked>Excel</div>
+                    <div>
+                        <input id="rdExcel" type="radio" name="ExcelFormat" value="2">PDF</div>
+                </div>
+                <div>
+                    <input id="txtEmail" type="email" placeholder="Enter Email ID" required>
+                    &nbsp;
+                    <button id="btnSend">Send Email</button>
+                </div>
+            </fieldset>
+            
+        </form>
+        <label id="lblValidation" class="labelValidationcss"></label>
+    </section>
 </body>
 </html>

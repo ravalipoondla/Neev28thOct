@@ -3,28 +3,60 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neev | Inventory Management App</title>     
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neev | Inventory Management App</title>
     <!--[if IE]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="./font-awesome-4.4.0/css/font-awesome.min.css" />
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
     <script src="./Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
-	
-  </head>
-  <body class="rawmaterials">
+ 
   <script type="text/javascript">
 	
+     
     $(function () {
 	
         jQuery.support.cors = true;
-			
+        //var changeURL = 
+        //var url = window.location.href;
+        /*if (!url.match(/roleId/)) {
+            url = url + '&roleId=1';
+            window.location.href = url;
+        }*/
+        //window.location.href = window.location.href.replace('ddlInventory=1', 'roleId=1');
+        //window.location.href = window.location.href.replace('ddlInventory=', 'roleId=1');
+        var roleId = 1; // GetParameterValues('roleId');
+		//roleId = roleId.replace('#', '');
+		
+		$('a').each(function()
+		{
+			var href = $(this).attr('href');
+			$(this).attr("href", href+'?roleId=' + roleId);
+		});
+		
+		function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    return urlparam[1];
+                }
+            }
+        }
+		$('#AddProductInvenory').hide();
+		GetAllInventoryProducts();
+		function GetAllInventoryProducts()
+		{	
+			$('#ddlInventory').html('');
+			$('#ddlInventory').html('<option value="">Select Product</option>');
 			$.ajax({
             type: "GET",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: "http://rpneev.com/InventoryAPI/Inventory/Product",
+			cache:false,
+            url: "http://neevtest.com:8080/InventoryAPI/Inventory/Product",
             success: function (data) {
                 $.each(data.GetAllProductInventoriesResult, function (i, item) {
                     $('#ddlInventory').append($('<option></option>').val(item.Id).html(item.Name));
@@ -33,10 +65,12 @@
             },
             error: function (jqxhr, textStatus, errorThrown) {
             }
-        });
+			});
+		}
 			
 			 $("input[name=Add]:radio").change(function () {
-					var selectedId = $(this).val();
+			     var selectedId = $(this).val();
+			     
 						if(selectedId == 1)
 						{
 							$('#AddProductInvenoryItem').show();
@@ -44,6 +78,7 @@
 						}
 						else if(selectedId == 2)
 						{
+							$('#lblProductValidation').text('');
 							$('#AddProductInvenory').show();
 							$('#AddProductInvenoryItem').hide();
 						}
@@ -52,7 +87,7 @@
 			
 			$('#btnAddProductItem').click(function () {
             if (ValidateUserInput()) {
-			 var urlVal = "http://rpneev.com/InventoryAPI/Inventory/Product/Add" ;
+			 var urlVal = "http://neevtest.com:8080/InventoryAPI/Inventory/Product/Add" ;
 			 var parameters  = '{"Id":'+ $('#ddlInventory').val() + ',"Quantity":' + $('#txtQuantity').val() + ',"UnitPrice":' + $('#txtUnitPrice').val() + '}';
 			 
                 $('#lblValidation').text('');
@@ -78,13 +113,44 @@
                     }
                 });
             }
+           // $('#lblProductValidation').text('Product added successfully');
+            //window.location.href = window.location.href.replace(/ddlInventory=[0-9]/, 'roleId=1');
+            //window.location.href = window.location.href.replace('ddlInventory=1', 'roleId=1');
+            //window.location.href = window.location.href.replace('ddlInventory=', 'roleId=1');
         });
 
-        function ValidateUserInput() {
+        /*function ValidateUserInput() {
             /*if ($('#ddlInventory').val() == "0") {
                 $('#lblValidation').text('Please Select Product');
                 return false;
             }*/
+            //return true;
+       // }
+			function ValidateUserInput() {
+			   // alert("tets");
+            if ($('#ddlInventory').val() == "") {
+                $('#lblValidation').text('Please Select Item');
+                return false;
+            }
+			if ($('#txtQuantity').val() == "") {
+                $('#lblValidation').text('Please Enter Quantity');
+                return false;
+            }
+			if ($('#txtUnitPrice').val() == "") {
+                $('#lblValidation').text('Please Enter UnitPrice');
+                return false;
+            }
+			if ($('#txtUnitThreshold').val() == "") {
+                $('#txtUnitThreshold').val(0);
+                return true;
+            }
+            return true;
+        }
+		function ValidateUserNameInput() {
+            if ($('#txtProductName').val() == "") {
+                $('#lblProductValidation').text('Please Enter Product Name');
+                return false;
+            }
             return true;
         }
 
@@ -103,8 +169,9 @@
 		
 			
 		$('#btnAddProduct').click(function () {
-            if (ValidateUserInput()) {
-			 var urlVal = "http://rpneev.com/InventoryAPI/Inventory/Product/Add" ;
+			
+            if (ValidateUserNameInput()) {
+			 var urlVal = "http://neevtest.com:8080/InventoryAPI/Inventory/Product/Add" ;
 			 var parameters  = '{"Name":"'+ $('#txtProductName').val() + '"}';
 			 //alert(urlVal);
 			 //alert(parameters);
@@ -118,39 +185,44 @@
                     success: function (data) {
 					//alert(data);
                         if (data != true) {
-                            $('#lblProductValidation').text('Error while adding the Inventory');
+                            $('#lblProductValidation').text('Error while adding product to Inventory');
                         }
                         else {
-                            $('#lblProductValidation').text('Inventory added successfully');
+                            $('#lblProductValidation').text('Product added successfully');
+							GetAllInventoryProducts();
                         }
                     },
                     error: function (jqxhr, textStatus, errorThrown) {
-					$('#lblProductValidation').text('Error while adding the Inventory');
+					$('#lblProductValidation').text('Error while adding product to Inventory');
 					//alert(textStatus);
                         //$('#lblValidation').text('Incorrect user role and passcode entered');
                     }
                 });
             }
+           // $('#lblProductValidation').text('Product added successfully');
+            //window.location.href = window.location.href.replace(/ddlInventory=[0-9]/, 'roleId=1');
+           // window.location.href = window.location.href.replace('ddlInventory=', 'roleId=1');
         });
 			
         });
 </script>
-  		<header class="hdrbar">
-  		  <nav class="hdrmenu"><i class="fa fa-arrow-circle-left fa-fw"></i>Product Inventory</nav>	  	 
-		</header>
-		<section class="bodycontainer">
-  			<section class="navbar">
-  			<nav class="topnav"><a href="/NeevApp/ProductInventory.html" class="highlightRed">Add</a> <a href="/NeevApp/DeleteProductInventory.html">Delete</a></nav>
-			</section>			 
+</head>
+<body class="product">
+    <header class="hdrbar">
+        <nav class="hdrmenu"><a href="/NeevForms/dashboard.html"><i class="fa fa-arrow-circle-left fa-fw"></i>Add Products</a></nav>
+    </header>
+    <section class="bodycontainer">
+        <section class="navbar">
+            <nav class="topnav"><a href="/NeevForms/ProductInventory.html" class="active"><i class="fa fa-plus"></i>Add</a> <a href="/NeevForms/DeleteProductInventory.html"><i class="fa fa-times"></i>Delete</a></nav>
+     	    <nav class="radioselect">
+						<div><input type="radio" name="Add" id="AddProductInventoryItem" value="1" checked>Add to Inventory</div>
+						<div><input type="radio" name="Add" id="AddProductInventory" value="2">Add New Product</div>
+				
+					</nav>	
+        </section>			 
 		   			 
 		   <form>
-		   <div class="formrow"> 
-					<nav class="topnav">
-						<input type="radio" name="Add" id="AddProductInventoryItem" value="1" checked>Add Inventory Item
-						<input type="radio" name="Add" id="AddProductInventory" value="2">Add Inventory
-				
-					</nav>
-		   </div>
+		  
 		   <div class="formrow"> 
 		   </div>
 		   <div id="AddProductInvenoryItem" class="divShow"> 
@@ -158,7 +230,7 @@
 					  <div class="formtitle">Product <span>*</span></div>
 					  <div class="formright">
 					  <!--<input type="text" placeholder="RM001" required="true" disabled="true" />-->
-					  <select id="ddlInventory" name="ddlInventory" ><option value="0">Select Product</option></select>
+					  <select id="ddlInventory" name="ddlInventory" required="true"></select>
 					  </div> 
 			   </div>
 			   <div class="formrow">
@@ -183,16 +255,16 @@
 			   <div class="formrow"> 
 					  <div class="formtitle">Product Name <span>*</span></div>
 					  <div class="formright">
-					  <input id="txtProductName" type="text" placeholder="Enter ProductName"  required="true"  />
+					  <input id="txtProductName" type="text" placeholder="Enter Product Name"  required="true"  />
 					  </div> 
 			   </div>
 				<div class="formrow">
-					<label id="lblProductValidation" class="labelValidationcss"></label></br></br>
 					<button id="btnAddProduct">Add </button>
 					<button id="btnCancelProduct" formnovalidate>Cancel</button>
 				</div>  
 			</div>
 		</form>
+        <label id="lblProductValidation" class="labelValidationcss"></label></br></br>
 	</section>
   </body>
 </html>

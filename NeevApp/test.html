@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+    $( document ).ready(function () {
+	
+        jQuery.support.cors = true;
+alert("2");
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+			Access-Control-Allow-Origin: *,
+            url: "http://neevtest.com:8080/User/Roles",
+            success: function (data) {
+				alert(JSON.stringify(data));
+                $.each(data.UserRolesResult, function (i, item) {
+                    $('#ddlUserRoles').append($('<option></option>').val(item.Id).html(item.Name));
+                });
+                
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+            }
+        });
+
+        $('#btnLogin').click(function () {
+            if (ValidateUserInput()) {
+                $('#lblValidation').text('');
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    url: "http://neevtest.com:8080/Validate/User/" + $('#ddlUserRoles option:selected').text() + "/" +$('#txtPassCode').val(),
+                    success: function (data) {
+                        if (data.ValidateUserResult != true) {
+                            $('#lblValidation').text('Incorrect user role and passcode entered');
+                        }
+                        else {
+                            var roleId = $('#ddlUserRoles option:selected').val();
+                            var url = "/Activities?roleId=" + roleId;
+                            window.location.href = url;
+                        }
+                    },
+                    error: function (jqxhr, textStatus, errorThrown) {
+                        $('#lblValidation').text('Incorrect user role and passcode entered');
+                    }
+                });
+            }
+        });
+
+        function ValidateUserInput() {
+            if ($('#ddlUserRoles').val() == "0") {
+                $('#lblValidation').text('Please Select User Role');
+                return false;
+            }
+            return true;
+        }
+    });
+
+</script>
+	</head>
+	<body>
+	<div id="login">
+<h1><strong>Welcome.</strong> Please login.</h1>
+<form action="javascript:void(0);" method="get">
+<fieldset>
+
+<p><label >UserRole</label><select id="ddlUserRoles" name="ddlUserRoles" ><option value="0">Select user Role</option></select> </p>
+
+<p><label >PassCode</label> <input id="txtPassCode"  type="password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
+<label id="lblValidation" class="labelValidationcss"></label>
+<p><input type="submit" value="Login" id="btnLogin"></p>
+</fieldset>
+</form>
+</div>
+	</body>
+</html>

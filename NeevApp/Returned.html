@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neev | Inventory Management App</title>     
+   	<link rel="stylesheet" href="./font-awesome-4.4.0/css/font-awesome.min.css" />
+	<!--<link rel="stylesheet" type="text/css" href="./stylesheets/jquery-ui.css" />-->
+	<link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./font-awesome-4.4.0/css/font-awesome.min.css" />
+    <link href="./stylesheets/Site.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	 <script type="text/javascript">
+<!-- Script to display Item Name in the dropdown-->
+    $(document).ready(function () {
+        $("#calendar").datepicker();
+        jQuery.support.cors = true;
+
+        var roleId = 1; //GetParameterValues('roleId');
+        //roleId = roleId.replace('#', '');
+		
+        $('a').each(function()
+        {
+            var href = $(this).attr('href');
+            $(this).attr("href", href+'?roleId=' + roleId);
+        });
+		
+        function GetParameterValues(param) {
+            var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+            for (var i = 0; i < url.length; i++) {
+                var urlparam = url[i].split('=');
+                if (urlparam[0] == param) {
+                    return urlparam[1];
+                }
+            }
+        }
+		
+        $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "http://neevtest.com:8080/InventoryAPI/Inventory/Product",
+            success: function (data) {
+                $.each(data.GetAllProductInventoriesResult, function (i, item) {
+                    $('#iname').append($('<option></option>').val(item.Id).html(item.Name));
+                });
+            },
+            error: function (jqxhr, textStatus, errorThrown) {
+                alert('error');
+            }
+			
+        });
+
+
+        $("#submitForm").click(function() {
+
+            var urlVal = "http://neevtest.com:8080/InventoryAPI/Inventory/Product/Add" ;
+            var parameters  = '{"Id":'+ $('#iname').val() + ',"Quantity":' + $('#qty').val() + ',"UnitPrice":' + $('#uprice').val() + ',"ReturnedFlag":1' +'}';
+			//alert('hi');
+			 
+            $('#lblValidation').text('');
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data : parameters, 
+                dataType: "json",
+                url: urlVal,
+                success: function (data) {
+                    //alert(data);
+                    if (data != true) {
+                        $('#lblValidation').text('Error!Is your data right?Please try again');
+                    }
+                    else {
+                        $('#lblValidation').text('ReturnedItem added successfully');
+                    }
+                },
+                error: function (jqxhr, textStatus, errorThrown) {
+                    $('#lblValidation').text('Error adding Returned Item, Please try again');
+                    //alert(textStatus);
+                    //$('#lblValidation').text('Incorrect user role and passcode entered');
+                }
+            });
+        })
+		
+        //<!-- To Display todays Date-->
+        var date =new Date();
+        var month = date.getUTCMonth() + 1; //months from 1-12
+        var day = date.getUTCDate();
+        var year = date.getUTCFullYear();
+        var newdate = day + "/" + month + "/" + year;
+        document.getElementById("calendar").value = newdate;
+		
+		
+
+		//<!-- Function of Cancel button-->
+		$('#btnCancel').click(function() {
+		$('#iname').prop('selectedIndex',0);
+		$('#qty').val("0");
+		$('#uprice').val("0");
+		
+		})
+	
+        //<!--To calculate the Total of each row as data are entered-->
+        $(".formright").on("change",'input[name^="uprice"],input[name^="qty"]',function (event)
+        {
+            var y = document.getElementById("qty").value;
+            var z = document.getElementById("uprice").value;
+            var x = y * z;
+            document.getElementById("total").value = x;
+        });
+		
+	
+	//<!-- DatePicker to enter calendar -->
+   /*  $(function() {
+            $("#calendar").datepicker();  
+
+        });*/
+    });	
+	
+</script>
+ </head>
+
+  <body class="sales">
+  		<header class="hdrbar">
+  		  <nav class="hdrmenu"><a href="/NeevForms/dashboard.html"><i class="fa fa-arrow-circle-left fa-fw"></i></a>Returned</nav>	  	 
+		</header>
+		<section class="bodycontainer">
+		<section class="formcontainer">
+		   <form name="myForm">
+	        <div class="formrow">
+		      	<div class="formtitle">Item Name<span>*</span></div>
+				<div class="formright">
+                    <Select id="iname" name="iname" class="iname" autofocus required="true">
+                        <option value="0">Select Item</option>
+                    </select>
+
+				</div>
+		   </div>	      
+	       <div class="formrow">
+		      	<div class="formtitle">Quantity<span>*</span></div>
+				<div class="formright"><input name="qty" class="qty" id="qty" type="number" placeholder="Enter only numbers"  required ></div>
+				<span id="error" style="color: Red; display: none">* Input digits (0 - 9)</span>
+		   </div>	   
+	        <div class="formrow">
+		      	<div class="formtitle">UnitPrice<span>*</span></div>
+				<div class="formright"><input name="uprice" class="uprice" id="uprice" type="number" placeholder="Enter only numbers" required></div>
+		   </div>	      
+	        <div class="formrow">
+		      	<div class="formtitle">Total amount</div>
+				<div class="formright"><input name="total" class="total" id="total" type="number" placeholder="0" readonly="readonly"></div>
+		   </div>	      
+           <div class="formrow">
+		      	<div class="formtitle">Date<span>*</span></div>
+				<div class="formright"><input class="date" type="text" id="calendar" required></div>
+		   </div>	
+		   <div class="formrow">	
+				<label id="lblValidation" class="labelValidationcss"></label></br></br>		   
+				<button id="submitForm">Submit</button>
+				<button id="btnCancel">Cancel</button>
+			</div>  
+		</form>
+		</section>
+	</section>
+  </body>
+ 
+</html>

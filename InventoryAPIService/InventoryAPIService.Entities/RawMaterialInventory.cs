@@ -13,5 +13,6 @@ namespace Inventory.RestAPI.Entities
         public int Quantity { get; set; }
         public double UnitPrice { get; set; }
         public int Threshold { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

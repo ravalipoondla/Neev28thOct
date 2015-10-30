@@ -23,5 +23,8 @@ namespace Inventory.RestAPI.BL
         List<RawMaterialInventory> GetAllRawMaterialInventories();
         List<ProductInventoryItem> GetAllProductInventoryItems();
         bool DeleteProductInventoryItem(int productInventoryTranId);
+        bool DeleteRawMaterialInventory(int rawMaterialInventoryId);
+        bool DeleteRawMaterialInventoryItem(int rawMaterialInventoryTranId);
+        List<RawMaterialInventoryItem> GetAllRawMaterialInventoryItems();
     }
 }

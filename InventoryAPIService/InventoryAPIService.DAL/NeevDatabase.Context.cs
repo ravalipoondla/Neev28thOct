@@ -180,5 +180,28 @@ namespace Inventory.RestAPI.DAL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteProductInventoryItem", productInventoryTransIdParameter);
         }
+    
+        public virtual int DeleteRawMaterialInventory(Nullable<int> rawMaterialInventoryID)
+        {
+            var rawMaterialInventoryIDParameter = rawMaterialInventoryID.HasValue ?
+                new ObjectParameter("RawMaterialInventoryID", rawMaterialInventoryID) :
+                new ObjectParameter("RawMaterialInventoryID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteRawMaterialInventory", rawMaterialInventoryIDParameter);
+        }
+    
+        public virtual int DeleteRawMaterialInventoryItem(Nullable<int> rawMaterialInventoryTransId)
+        {
+            var rawMaterialInventoryTransIdParameter = rawMaterialInventoryTransId.HasValue ?
+                new ObjectParameter("RawMaterialInventoryTransId", rawMaterialInventoryTransId) :
+                new ObjectParameter("RawMaterialInventoryTransId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteRawMaterialInventoryItem", rawMaterialInventoryTransIdParameter);
+        }
+    
+        public virtual ObjectResult<GetALLRawMaterialInventoryItems_Result> GetALLRawMaterialInventoryItems()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetALLRawMaterialInventoryItems_Result>("GetALLRawMaterialInventoryItems");
+        }
     }
 }

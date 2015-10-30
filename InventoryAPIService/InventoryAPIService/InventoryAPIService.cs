@@ -225,5 +225,37 @@ namespace Inventory.RestAPI.Service
             return true;
         }
 
+        /// <summary>
+        /// Get all Raw Material Invntory Items
+        /// </summary>
+        /// <returns>returns all Raw Material Inventory Items</returns>
+        [WebGet(UriTemplate = "/Inventory/RawMaterial/Items", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
+        [OperationContract]
+        public List<RawMaterialInventoryItem> GetAllRawMaterialInventoryItems()
+        {
+            return this.apiService.GetAllRawMaterialInventoryItems();
+        }
+
+        /// <summary>
+        /// Get all Proudct Invntories
+        /// </summary>
+        /// <returns>returns all Product Inventories</returns>
+        [WebGet(UriTemplate = "/Inventory/RawMaterial/Item/Delete/{rawMaterialInventoryTranId}")]
+        [OperationContract]
+        public bool DeleteRawMaterialInventoryItem(string rawMaterialInventoryTranId)
+        {
+            return this.apiService.DeleteRawMaterialInventoryItem(Convert.ToInt32(rawMaterialInventoryTranId));
+        }
+
+        /// <summary>
+        /// Delete 
+        /// </summary>
+        /// <returns>returns all Product Inventories</returns>
+        [WebGet(UriTemplate = "/Inventory/RawMaterial/Delete/{rawMaterialInventoryId}")]
+        [OperationContract]
+        public bool DeleteRawMaterialInventory(string rawMaterialInventoryId)
+        {
+            return this.apiService.DeleteRawMaterialInventory(Convert.ToInt32(rawMaterialInventoryId));
+        }
     }
 }

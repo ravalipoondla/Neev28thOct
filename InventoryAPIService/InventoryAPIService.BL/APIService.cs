@@ -48,7 +48,7 @@ namespace Inventory.RestAPI.BL
         {
             var context = new NeevDatabaseContainer();
             var productInventories = (from productInventory in context.GetALLInventories()
-                                 select new ProductInventory { Id = productInventory.product_inventory_id, Name = productInventory.product_name,Quantity=productInventory.quantity.Value }).ToList<ProductInventory>();
+                                 select new ProductInventory { Id = productInventory.product_inventory_id, Name = productInventory.product_name,Quantity=productInventory.quantity.Value,CreatedDate= productInventory.creation_dt }).ToList<ProductInventory>();
             return productInventories;
         }
 
@@ -352,7 +352,7 @@ namespace Inventory.RestAPI.BL
             {
 
                 smtpServer = new SmtpClient(System.Configuration.ConfigurationManager.AppSettings["smtpClient"]);
-
+                smtpServer.Port = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["smtpPort"]);
                 //smtpServer = new SmtpClient("smtp.gmail.com");
                 //smtpServer.Port = 465;//587
                 //smtpServer.EnableSsl = true;
@@ -485,7 +485,7 @@ namespace Inventory.RestAPI.BL
         {
             var context = new NeevDatabaseContainer();
             var rawMaterialInventories = (from rawMaterialInventory in context.GetALLRawMaterialInventories()
-                                          select new RawMaterialInventory { Id = rawMaterialInventory.raw_material_inventory_id, Name = rawMaterialInventory.raw_material_name,Threshold= rawMaterialInventory.threshhold_value,Quantity=rawMaterialInventory.available_quantity.Value,UnitPrice = rawMaterialInventory.price.Value}).ToList<RawMaterialInventory>();
+                                          select new RawMaterialInventory { Id = rawMaterialInventory.raw_material_inventory_id, Name = rawMaterialInventory.raw_material_name,Threshold= rawMaterialInventory.threshhold_value,Quantity=rawMaterialInventory.available_quantity.Value,UnitPrice = rawMaterialInventory.price.Value,CreatedDate= rawMaterialInventory.creation_dt}).ToList<RawMaterialInventory>();
             return rawMaterialInventories;
         }
 
@@ -493,7 +493,7 @@ namespace Inventory.RestAPI.BL
         {
             var context = new NeevDatabaseContainer();
             var productInventoryItems = (from productInventoryItem in context.GetALLInventoryItems()
-                                         select new ProductInventoryItem { Id = productInventoryItem.product_inventory_trans_id, Name = productInventoryItem.product_name, Quantity = productInventoryItem.quantity, Price = productInventoryItem.price.Value }).ToList<ProductInventoryItem>();
+                                         select new ProductInventoryItem { Id = productInventoryItem.product_inventory_trans_id, Name = productInventoryItem.product_name, Quantity = productInventoryItem.quantity, Price = productInventoryItem.price.Value,CreatedDate = productInventoryItem.creation_dt }).ToList<ProductInventoryItem>();
             return productInventoryItems;
         }
 
@@ -509,6 +509,42 @@ namespace Inventory.RestAPI.BL
             {
                 return false;
             }
+        }
+
+        public bool DeleteRawMaterialInventory(int rawMaterialInventoryId)
+        {
+            try
+            {
+                var context = new NeevDatabaseContainer();
+                context.DeleteRawMaterialInventory(rawMaterialInventoryId);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteRawMaterialInventoryItem(int rawMaterialInventoryTranId)
+        {
+            try
+            {
+                var context = new NeevDatabaseContainer();
+                context.DeleteRawMaterialInventoryItem(rawMaterialInventoryTranId);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public List<RawMaterialInventoryItem> GetAllRawMaterialInventoryItems()
+        {
+            var context = new NeevDatabaseContainer();
+            var productInventoryItems = (from rawMaterialInventoryItem in context.GetALLRawMaterialInventoryItems()
+                                         select new RawMaterialInventoryItem { Id = rawMaterialInventoryItem.raw_material_inventory_trans_id, Name = rawMaterialInventoryItem.raw_material_name, Quantity = rawMaterialInventoryItem.quantity, Price = rawMaterialInventoryItem.price }).ToList<RawMaterialInventoryItem>();
+            return productInventoryItems;
         }
     }
 }

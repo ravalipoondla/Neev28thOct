@@ -27,9 +27,16 @@
         <Function Name="usp_DeleteProductInventoryItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProductInventoryTransId" Type="int" Mode="In" />
         </Function>
+        <Function Name="usp_DeleteRawMaterialInventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RawMaterialInventoryID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteRawMaterialInventoryItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RawMaterialInventoryTransId" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_GetALLInventories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetALLInventoryItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetALLRawMaterialInventories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetALLRawMaterialInventoryItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetExportData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ActivityId" Type="int" Mode="In" />
           <Parameter Name="FromDate" Type="datetime" Mode="In" />
@@ -97,6 +104,13 @@
           <FunctionImport Name="DeleteProductInventoryItem">
           <Parameter Name="ProductInventoryTransId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DeleteRawMaterialInventory">
+          <Parameter Name="RawMaterialInventoryID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteRawMaterialInventoryItem">
+          <Parameter Name="RawMaterialInventoryTransId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetALLRawMaterialInventoryItems" ReturnType="Collection(NeevDatabase.GetALLRawMaterialInventoryItems_Result)" />
         </EntityContainer>
         <ComplexType Name="usp_GetUserRoles_Result">
           <Property Type="Int32" Name="user_role_id" Nullable="false" />
@@ -131,18 +145,28 @@
           <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="available_quantity" Nullable="true" />
           <Property Type="Int32" Name="threshhold_value" Nullable="false" />
-          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
+          <Property Type="Double" Name="price" Nullable="true" />
         </ComplexType>
         <ComplexType Name="usp_GetALLInventoryItems_Result">
           <Property Type="Int32" Name="product_inventory_trans_id" Nullable="false" />
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="quantity" Nullable="false" />
           <Property Type="Double" Name="price" Nullable="true" />
+          <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
         </ComplexType>
         <ComplexType Name="usp_GetALLInventories_Result">
           <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
           <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
           <Property Type="Int32" Name="quantity" Nullable="true" />
+          <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetALLRawMaterialInventoryItems_Result">
+          <Property Type="Int32" Name="raw_material_inventory_trans_id" Nullable="false" />
+          <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -166,6 +190,7 @@
                 <ScalarProperty Name="product_inventory_id" ColumnName="product_inventory_id" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="creation_dt" ColumnName="creation_dt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -212,6 +237,7 @@
                 <ScalarProperty Name="raw_material_name" ColumnName="raw_material_name" />
                 <ScalarProperty Name="available_quantity" ColumnName="available_quantity" />
                 <ScalarProperty Name="threshhold_value" ColumnName="threshhold_value" />
+                <ScalarProperty Name="creation_dt" ColumnName="creation_dt" />
                 <ScalarProperty Name="price" ColumnName="price" />
               </ComplexTypeMapping>
             </ResultMapping>
@@ -223,10 +249,24 @@
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="creation_dt" ColumnName="creation_dt" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteProductInventoryItem" FunctionName="NeevDatabase.Store.usp_DeleteProductInventoryItem" />
+          <FunctionImportMapping FunctionImportName="DeleteRawMaterialInventory" FunctionName="NeevDatabase.Store.usp_DeleteRawMaterialInventory" />
+          <FunctionImportMapping FunctionImportName="DeleteRawMaterialInventoryItem" FunctionName="NeevDatabase.Store.usp_DeleteRawMaterialInventoryItem" />
+          <FunctionImportMapping FunctionImportName="GetALLRawMaterialInventoryItems" FunctionName="NeevDatabase.Store.usp_GetALLRawMaterialInventoryItems">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="NeevDatabase.GetALLRawMaterialInventoryItems_Result">
+                <ScalarProperty Name="raw_material_inventory_trans_id" ColumnName="raw_material_inventory_trans_id" />
+                <ScalarProperty Name="raw_material_name" ColumnName="raw_material_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="creation_dt" ColumnName="creation_dt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

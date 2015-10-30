@@ -17,5 +17,6 @@ namespace Inventory.RestAPI.DAL
         public string product_name { get; set; }
         public int quantity { get; set; }
         public Nullable<double> price { get; set; }
+        public System.DateTime creation_dt { get; set; }
     }
 }

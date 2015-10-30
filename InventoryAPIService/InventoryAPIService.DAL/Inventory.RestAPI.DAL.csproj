@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetALLRawMaterialInventoryItems_Result.cs">
+      <DependentUpon>NeevDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetInventoryData_Result.cs">
       <DependentUpon>NeevDatabase.tt</DependentUpon>
     </Compile>

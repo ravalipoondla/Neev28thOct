@@ -14,5 +14,6 @@ namespace Inventory.RestAPI.Entities
         public double UnitPrice { get; set; }
         public int SoldFlag { get; set; }
         public int ReturnedFlag { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

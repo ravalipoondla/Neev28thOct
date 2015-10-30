@@ -44,6 +44,13 @@
     <FunctionImport Name="DeleteProductInventoryItem">
       <Parameter Name="ProductInventoryTransId" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="DeleteRawMaterialInventory">
+      <Parameter Name="RawMaterialInventoryID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteRawMaterialInventoryItem">
+      <Parameter Name="RawMaterialInventoryTransId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetALLRawMaterialInventoryItems" ReturnType="Collection(NeevDatabase.GetALLRawMaterialInventoryItems_Result)" />
   </EntityContainer>
   <ComplexType Name="usp_GetUserRoles_Result">
     <Property Type="Int32" Name="user_role_id" Nullable="false" />
@@ -78,17 +85,27 @@
     <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
     <Property Type="Int32" Name="available_quantity" Nullable="true" />
     <Property Type="Int32" Name="threshhold_value" Nullable="false" />
-    <Property Type="Double" Name="price" Nullable="false" />
+    <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
+    <Property Type="Double" Name="price" Nullable="true" />
   </ComplexType>
   <ComplexType Name="usp_GetALLInventoryItems_Result">
     <Property Type="Int32" Name="product_inventory_trans_id" Nullable="false" />
     <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
     <Property Type="Int32" Name="quantity" Nullable="false" />
     <Property Type="Double" Name="price" Nullable="true" />
+    <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
   </ComplexType>
   <ComplexType Name="usp_GetALLInventories_Result">
     <Property Type="Int32" Name="product_inventory_id" Nullable="false" />
     <Property Type="String" Name="product_name" Nullable="false" MaxLength="100" />
     <Property Type="Int32" Name="quantity" Nullable="true" />
+    <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="GetALLRawMaterialInventoryItems_Result">
+    <Property Type="Int32" Name="raw_material_inventory_trans_id" Nullable="false" />
+    <Property Type="String" Name="raw_material_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+    <Property Type="Double" Name="price" Nullable="false" />
+    <Property Type="DateTime" Name="creation_dt" Nullable="false" Precision="23" />
   </ComplexType>
 </Schema>

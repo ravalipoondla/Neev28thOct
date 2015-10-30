@@ -14,16 +14,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/23/2015 15:20:40</publishTime>
     </File>
     <File Include="bin/Inventory.RestAPI.BL.dll">
-      <publishTime>10/28/2015 16:31:18</publishTime>
+      <publishTime>10/30/2015 15:07:52</publishTime>
     </File>
     <File Include="bin/Inventory.RestAPI.DAL.dll">
-      <publishTime>10/28/2015 16:31:18</publishTime>
+      <publishTime>10/29/2015 17:00:21</publishTime>
     </File>
     <File Include="bin/Inventory.RestAPI.Entities.dll">
-      <publishTime>10/26/2015 22:45:22</publishTime>
+      <publishTime>10/29/2015 18:29:06</publishTime>
     </File>
     <File Include="bin/InventoryAPIService.dll">
-      <publishTime>10/28/2015 16:31:19</publishTime>
+      <publishTime>10/30/2015 15:07:52</publishTime>
     </File>
     <File Include="bin/itextsharp.dll">
       <publishTime>09/16/2015 21:22:21</publishTime>
@@ -41,7 +41,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/20/2015 15:04:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/28/2015 16:31:20</publishTime>
+      <publishTime>10/30/2015 15:07:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

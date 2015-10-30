@@ -12,5 +12,6 @@ namespace Inventory.RestAPI.Entities
         public int Quantity { get; set; }
         public double Price { get; set; }
         public double Percentage { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }
